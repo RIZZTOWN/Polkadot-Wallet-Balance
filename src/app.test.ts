@@ -1,4 +1,4 @@
-import { AccountInfo } from '../src/app';
+import { AccountInfo } from './app';
 
 describe('Should get wallet balance', () => {
   test('return is defined', async () => {
