@@ -1,12 +1,13 @@
-import { AccountInfo } from './app';
+import { PolkadotClient } from './chainClient';
+import { WalletClient, Wallet } from "./walletClient";
 
-describe('Should get wallet balance', () => {
-  test('return value is defined', async () => {
-    const account = new AccountInfo();
-    const balance = await account.getBalance();
-    expect(balance).toBeDefined();
-  });
-});
+// describe('Should get wallet balance', () => {
+//   test('return value is defined', async () => {
+//     const account = new AccountInfo();
+//     const balance = await account.getBalance();
+//     expect(balance).toBeDefined();
+//   });
+// });
 
 
 //mock service
