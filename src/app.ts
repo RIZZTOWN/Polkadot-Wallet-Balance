@@ -28,3 +28,26 @@ const getBal = async () => {
 };
 
 getBal();
+
+
+
+
+// import { ApiPromise, WsProvider } from '@polkadot/api';
+
+// async function getBalance() {
+//   const walletAddress: string = '1qnJN7FViy3HZaxZK9tGAA71zxHSBeUweirKqCaox4t8GT7';
+//   const wsProvider = new WsProvider("wss://rpc.polkadot.io");
+//   const api = await ApiPromise.create({ provider: wsProvider });
+
+//   let {
+//     data: { free: previousFree },
+//     nonce: previousNonce,
+//   } = await api.query.system.account(walletAddress);
+
+//   console.log(
+//     `${walletAddress} has a balance of ${previousFree.toString()}, nonce ${previousNonce.toNumber()}`
+//   );
+//   return `${walletAddress} has a balance of ${previousFree.toString()}, nonce ${previousNonce.toNumber()}`
+// }
+
+// getBalance();
