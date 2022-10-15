@@ -8,7 +8,7 @@ const wallet = new Wallet(client);
 
 try {
   const balance = wallet.getBalance();
-  balance.then(res => console.log("in try; ", res));
+  balance.then(res => console.log(`${res.walletAddress} has a balance of ${res.formattedBalance}, raw balance: ${res.balance}, nonce: ${res.nonce ? res.nonce : 'unavailable'}`));
 } catch (error) {
   console.error(error);
 }
