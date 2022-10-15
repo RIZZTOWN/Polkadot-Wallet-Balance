@@ -17,17 +17,15 @@ class PolkadotClient implements ChainClient {
   }
 
   public async getBalance(walletAddress: string): Promise<BalanceInfo> {
-
     let balanceInfo = {
       walletAddress: walletAddress,
-      balance: '0',
-      formattedBalance: '0',
+      balance: "0",
+      formattedBalance: "0",
       nonce: -1,
-    }
-    if (walletAddress === '') throw new SyntaxError("invalid wallet address");
+    };
+    if (walletAddress === "") throw new SyntaxError("invalid wallet address");
 
     try {
-
       let {
         data: { free: previousBalanceU128 },
         nonce: previousNonce,
@@ -43,7 +41,6 @@ class PolkadotClient implements ChainClient {
         formattedBalance: formattedBalance,
         nonce: previousNonce.toNumber(),
       }; // have unit and balance
-
     } catch (error) {
       // let caller handle error
       throw error;
@@ -53,19 +50,18 @@ class PolkadotClient implements ChainClient {
   }
 
   public static formatBalanceString(balance: string): string {
-    if (balance === '0' || balance === '') return '0';
+    if (balance === "0" || balance === "") return "0";
     let decimalPlace = balance.length - PolkadotClient.PLANCK_TO_DOT;
 
     while (decimalPlace < 0) {
-      balance = '0' + balance;
+      balance = "0" + balance;
       decimalPlace++;
     }
 
     let decimalBalance =
       balance.slice(0, decimalPlace) + "." + balance.slice(decimalPlace);
-    // round to 3 decimals? add comma's?
     return decimalBalance;
   }
-} // test if length is 10 there shouldnt be a decimal
+}
 
 export { PolkadotClient };

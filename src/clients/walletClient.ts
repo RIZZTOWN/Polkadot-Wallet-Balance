@@ -1,13 +1,12 @@
-
 interface ChainClient {
-  getBalance(walletAddress: string): Promise<BalanceInfo>
+  getBalance(walletAddress: string): Promise<BalanceInfo>;
 }
 
 interface BalanceInfo {
-  walletAddress: string,
-  balance: string,
-  formattedBalance: string,
-  nonce?: number
+  walletAddress: string;
+  balance: string;
+  formattedBalance: string;
+  nonce?: number;
 }
 
 // enum for type of client
