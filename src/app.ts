@@ -1,75 +1,23 @@
-import { PolkadotClient } from "./chainClient";
-import { Wallet } from "./walletClient";
+import { PolkadotClient } from "./clients/chainClient";
+import { Wallet } from "./clients/walletClient";
 
-const walletAddress: string = "1qnJN7FViy3HZaxZK9tGAA71zxHSBeUweirKqCaox4t8GT7";
+const app = async () => {
+  const walletAddress: string =
+    "1qnJN7FViy3HZaxZK9tGAA71zxHSBeUweirKqCaox4t8GT7";
+  const client = await PolkadotClient.createClient();
+  const wallet = new Wallet(client, walletAddress);
 
-const client = new PolkadotClient(walletAddress);
-const wallet = new Wallet(client);
-
-try {
-  const balance = wallet.getBalance();
-  balance.then(res => console.log(`${res.walletAddress} has a balance of ${res.formattedBalance}, raw balance: ${res.balance}, nonce: ${res.nonce ? res.nonce : 'unavailable'}`));
-} catch (error) {
-  console.error(error);
-}
-
-
-
-
-
-
-
-
-
-// import "@polkadot/api-augment";
-// import { ApiPromise, WsProvider } from "@polkadot/api";
-
-// export class AccountInfo {
-//   public async getBalance(): Promise<string> {
-//     const walletAddress: string =
-//       "1qnJN7FViy3HZaxZK9tGAA71zxHSBeUweirKqCaox4t8GT7";
-//     const wsProvider = new WsProvider("wss://rpc.polkadot.io");
-//     const api = await ApiPromise.create({ provider: wsProvider });
-
-//     let {
-//       data: { free: previousFree },
-//       nonce: previousNonce,
-//     } = await api.query.system.account(walletAddress);
-
-//     console.log(
-//       `${walletAddress} has a balance of ${previousFree.toString()}, nonce ${previousNonce.toNumber()}`
-//     );
-//     return `${walletAddress} has a balance of ${previousFree.toString()}, nonce ${previousNonce.toNumber()}`;
-//   }
-// }
-
-// const getBal = async () => {
-//   const account: AccountInfo = new AccountInfo();
-//   const balance: string = await account.getBalance();
-//   console.log("outside");
-//   return balance;
-// };
-
-// getBal();
-
-//========================================================
-
-// import { ApiPromise, WsProvider } from '@polkadot/api';
-
-// async function getBalance() {
-//   const walletAddress: string = '1qnJN7FViy3HZaxZK9tGAA71zxHSBeUweirKqCaox4t8GT7';
-//   const wsProvider = new WsProvider("wss://rpc.polkadot.io");
-//   const api = await ApiPromise.create({ provider: wsProvider });
-
-//   let {
-//     data: { free: previousFree },
-//     nonce: previousNonce,
-//   } = await api.query.system.account(walletAddress);
-
-//   console.log(
-//     `${walletAddress} has a balance of ${previousFree.toString()}, nonce ${previousNonce.toNumber()}`
-//   );
-//   return `${walletAddress} has a balance of ${previousFree.toString()}, nonce ${previousNonce.toNumber()}`
-// }
-
-// getBalance();
+  try {
+    const balance = await wallet.getBalance();
+    console.log(
+      `${balance.walletAddress} has a balance of ${
+        balance.formattedBalance
+      }, raw balance: ${balance.balance}, nonce: ${
+        balance.nonce ? balance.nonce : "unavailable"
+      }`
+    );
+  } catch (error) {
+    console.error("Issue retrieving balance", error);
+  }
+};
+app();
