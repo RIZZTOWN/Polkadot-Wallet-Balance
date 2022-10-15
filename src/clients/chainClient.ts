@@ -33,7 +33,7 @@ class PolkadotClient implements ChainClient {
         nonce: previousNonce,
       } = await this.client.query.system.account(walletAddress);
 
-      const formattedBalance = this.formatBalanceString(
+      const formattedBalance = PolkadotClient.formatBalanceString(
         previousBalanceU128.toString()
       );
 
@@ -52,7 +52,8 @@ class PolkadotClient implements ChainClient {
     return balanceInfo;
   }
 
-  private formatBalanceString(balance: string): string {
+  public static formatBalanceString(balance: string): string {
+    if (balance === '0' || balance === '') return '0';
     let decimalPlace = balance.length - PolkadotClient.PLANCK_TO_DOT;
 
     while (decimalPlace < 0) {
