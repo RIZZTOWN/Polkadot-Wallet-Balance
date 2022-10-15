@@ -1,0 +1,1 @@
+// in readMe 'integration tests can be made to test client connection'
