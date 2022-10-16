@@ -12,26 +12,23 @@ npm install
 
 ## Usage
 
+### Running the Code
+After the code is installed, the application needs to be built then can be started.
+
 ```bash
-# To build & start
-npm run start:build
-
-# To start
-npm run start
-
-# To build
 npm run build
 
-# To run dev
-npm run dev
-
-# To test
-npm run test
+npm run start
 ```
 
-## Currently available blockchains
+If user wants to use different wallet address, the enviroment varaible `WALLET_ADDRESS` can be set before calling start.
+```bash
+WALLET_ADDRESS="1qnJN7FViy3HZaxZK9tGAA71zxHSBeUweirKqCaox4t8GT7" npm run start
+```
 
-- Polkadot
+### Running Unit Tests
+To run all unit tests, use the following command.
 
-## Description of implementation
-
+```
+npm run test
+```
