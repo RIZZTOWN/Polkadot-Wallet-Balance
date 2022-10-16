@@ -1,7 +1,7 @@
 {
   "name": "btcs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application that retrieves the balance of a wallet address on a blockchain",
   "main": "index.js",
   "scripts": {
     "start": "node dist/app.js",
@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ryan Wheeler",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.19.3",

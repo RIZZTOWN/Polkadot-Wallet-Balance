@@ -4,6 +4,8 @@ import { ChainClient, BalanceInfo } from "./walletClient";
 
 class PolkadotClient implements ChainClient {
   private static readonly PLANCK_TO_DOT = 10;
+  private static readonly UNIT = "DOT";
+  private static readonly POLKADOT_WS_URI = "wss://rpc.polkadot.io";
   client: ApiPromise;
 
   private constructor(client: ApiPromise) {
@@ -11,38 +13,36 @@ class PolkadotClient implements ChainClient {
   }
 
   public static async createClient(): Promise<PolkadotClient> {
-    const wsProvider = new WsProvider("wss://rpc.polkadot.io");
+    const wsProvider = new WsProvider(PolkadotClient.POLKADOT_WS_URI);
     const client = await ApiPromise.create({ provider: wsProvider });
     return new PolkadotClient(client);
   }
 
   public async getBalance(walletAddress: string): Promise<BalanceInfo> {
+    // Default result on error
     let balanceInfo = {
       walletAddress: walletAddress,
       balance: "0",
-      formattedBalance: "0",
-      nonce: -1,
+      unit: PolkadotClient.UNIT,
     };
     if (walletAddress === "") throw new SyntaxError("invalid wallet address");
 
     try {
       let {
-        data: { free: previousBalanceU128 },
-        nonce: previousNonce,
+        data: { free: balance },
       } = await this.client.query.system.account(walletAddress);
 
       const formattedBalance = PolkadotClient.formatBalanceString(
-        previousBalanceU128.toString()
+        balance.toString()
       );
 
       balanceInfo = {
         walletAddress: walletAddress,
-        balance: previousBalanceU128.toString(),
-        formattedBalance: formattedBalance,
-        nonce: previousNonce.toNumber(),
-      }; // have unit and balance
+        balance: formattedBalance,
+        unit: PolkadotClient.UNIT,
+      };
     } catch (error) {
-      // let caller handle error
+      // Let caller handle error
       throw error;
     }
 

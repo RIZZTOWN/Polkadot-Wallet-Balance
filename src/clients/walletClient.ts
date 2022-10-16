@@ -5,11 +5,8 @@ interface ChainClient {
 interface BalanceInfo {
   walletAddress: string;
   balance: string;
-  formattedBalance: string;
-  nonce?: number;
+  unit: string;
 }
-
-// enum for type of client
 
 class Wallet implements ChainClient {
   ChainClient: ChainClient;

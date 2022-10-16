@@ -1,5 +1,4 @@
 import { BalanceInfo, ChainClient } from "../../clients/walletClient";
-import * as fs from 'fs';
 
 class ChainClientMock implements ChainClient {
   balanceInfo: BalanceInfo;
@@ -11,11 +10,10 @@ class ChainClientMock implements ChainClient {
   public async getBalance(walletAddress: string): Promise<BalanceInfo> {
     let balanceInfo: BalanceInfo = {
       walletAddress: walletAddress,
-      balance: '0',
-      formattedBalance: '0',
-      nonce: -1,
-    }
-    if (walletAddress === '') {
+      balance: "0",
+      unit: "MOCK DOT",
+    };
+    if (walletAddress === "") {
       throw new SyntaxError("invalid wallet address");
     } else {
       balanceInfo = this.balanceInfo;
@@ -26,7 +24,6 @@ class ChainClientMock implements ChainClient {
   public setBalanceInfo(balanceInfo: BalanceInfo) {
     this.balanceInfo = balanceInfo;
   }
-
 }
 
 export { ChainClientMock };
